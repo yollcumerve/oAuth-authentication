@@ -20,11 +20,14 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/', (req,res) => {
-    res.render('home')
-})
+
 
 app.use('/auth', require('./routes/auth-routes'))
+app.use('/profile', require('./routes/profile-routes'))
+
+app.get('/', (req,res) => {
+    res.render('home', {user: req.user})
+})
 
 app.listen(PORT, () => {
     console.log('-------------')

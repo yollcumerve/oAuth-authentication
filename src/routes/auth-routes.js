@@ -3,7 +3,7 @@ const passport = require('passport')
 
 //Auth login
 router.get('/login', (req,res) => {
-    res.render('login')
+    res.render('login', {user: req.user})
 })
 
 //Auth with google
@@ -14,12 +14,13 @@ router.get('/google', passport.authenticate('google',{
 //auth logout
 router.get('/logout', (req,res) => {
     //handle with passport
-    res.send('logging out')
+    req.logout()
+    res.redirect('/')
 })
 
 //callback route for google to redirect to
 router.get('/google/cb', passport.authenticate('google'),(req,res) => {
-    res.send(req.user)
+    res.redirect('/profile/')
 })
 
 module.exports = router
